@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages {
+        stage('Conexion AWS') {
+            steps {
+                sh 'aws eks --region us-east-2 update-kubeconfig --name education-eks-odoo'
+            }
+        }
+        stage('Ejecucion del despliegue odoo en AWS') {
+            steps {
+                sh 'kubectl apply -f odoo.yml'
+            }
+        }
+    }
+}
